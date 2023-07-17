@@ -29,7 +29,7 @@ while True:
         else:
             print("Operação falhou! Digite um valor válido.\n")
         sleep(2)
-        os.system("clear")
+        os.system('cls')
         
     elif opcao.upper() == "S":
         valor = float(input("Valor a ser sacado: "))
@@ -45,11 +45,11 @@ while True:
         else:
             print("Operação falhou! Digite um valor válido.\n")
         sleep(2)
-        os.system("clear")
+        os.system("cls")
 
 
     elif opcao.upper() == "E":
-        os.system("clear")
+        os.system("cls")
         print("-=-=-=-= EXTRATO =-=-=-=-")
         print()
         print(extrato)
