@@ -1,0 +1,20 @@
+Hora: 17/04/2024 14:31:38 - Função: criar_cliente - Args: ([<PessoaFisica: 1>],){} - Retorno: None
+Hora: 17/04/2024 14:31:42 - Função: criar_conta - Args: (1, [<PessoaFisica: 1>], [<ContaCorrente: ("0001", "1", "1")>]){} - Retorno: None
+Hora: 17/04/2024 14:31:45 - Função: depositar - Args: ([<PessoaFisica: 1>],){} - Retorno: None
+Hora: 17/04/2024 14:31:48 - Função: exibir_extrato - Args: ([<PessoaFisica: 1>],){} - Retorno: None
+Hora: 17/04/2024 14:36:12 - Função: criar_cliente - Args: ([<PessoaFisica: 1>],){} - Retorno: None
+Hora: 17/04/2024 15:21:09 - Função: criar_conta - Args: (1, [], []){} - Retorno: None
+Hora: 17/04/2024 15:21:26 - Função: criar_cliente - Args: ([<PessoaFisica: 123>],){} - Retorno: None
+Hora: 17/04/2024 15:21:40 - Função: criar_cliente - Args: ([<PessoaFisica: 123>, <PessoaFisica: 456>],){} - Retorno: None
+Hora: 17/04/2024 15:21:51 - Função: criar_conta - Args: (1, [<PessoaFisica: 123>, <PessoaFisica: 456>], [<ContaCorrente: ("0001", "1", "Rafael")>]){} - Retorno: None
+Hora: 17/04/2024 15:21:56 - Função: criar_conta - Args: (2, [<PessoaFisica: 123>, <PessoaFisica: 456>], [<ContaCorrente: ("0001", "1", "Rafael")>, <ContaCorrente: ("0001", "2", "Rafael")>]){} - Retorno: None
+Hora: 17/04/2024 15:21:59 - Função: criar_conta - Args: (3, [<PessoaFisica: 123>, <PessoaFisica: 456>], [<ContaCorrente: ("0001", "1", "Rafael")>, <ContaCorrente: ("0001", "2", "Rafael")>, <ContaCorrente: ("0001", "3", "athos")>]){} - Retorno: None
+Hora: 17/04/2024 17:53:11 - Função: criar_cliente - Args: {args}{kwargs} - Retorno: {result}
+Hora: 17/04/2024 17:53:17 - Função: criar_conta - Args: {args}{kwargs} - Retorno: {result}
+Hora: 17/04/2024 17:53:19 - Função: depositar - Args: {args}{kwargs} - Retorno: {result}
+Hora: 17/04/2024 17:53:23 - Função: sacar - Args: {args}{kwargs} - Retorno: {result}
+Hora: 17/04/2024 17:53:29 - Função: depositar - Args: {args}{kwargs} - Retorno: {result}
+Hora: 17/04/2024 17:53:33 - Função: exibir_extrato - Args: {args}{kwargs} - Retorno: {result}
+Hora: 17/04/2024 17:53:47 - Função: exibir_extrato - Args: {args}{kwargs} - Retorno: {result}
+Hora: 17/04/2024 17:53:54 - Função: exibir_extrato - Args: {args}{kwargs} - Retorno: {result}
+Hora: 17/04/2024 17:54:00 - Função: exibir_extrato - Args: {args}{kwargs} - Retorno: {result}
