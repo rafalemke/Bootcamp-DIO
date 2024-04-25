@@ -1,3 +1,5 @@
 {
-    "makefile.makefilePath": "C:\\Users\\Rafa_\\Documents\\GitHub\\Bootcamp-DIO\\Bootcamp_PythonBack-End\\workout\\Makefile"
+    "makefile.makefilePath": "C:\\Users\\Rafa_\\Documents\\GitHub\\Bootcamp-DIO\\Bootcamp_PythonBack-End\\workout\\Makefile",
+    "python.analysis.typeCheckingMode": "off",
+    "python.analysis.autoImportCompletions": true
 }
