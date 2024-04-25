@@ -3,14 +3,24 @@ from uuid import uuid4
 from fastapi import APIRouter, status, Body, HTTPException
 from pydantic import UUID4
 from sqlalchemy.future import select
+from sqlalchemy.exc import IntegrityError
 from workout.workout_api.atletas.schemas import AtletaIN, AtletaOut, AtletaUpdate
 from workout.workout_api.atletas.models import AtletaModel
 from workout.workout_api.centro_treinamento.models import CentroTreinamentoModel
 from workout.workout_api.contrib.dependencies import DataBaseDependecy
 from datetime import datetime
 from workout.workout_api.categorias.models import CategoriaModel
+from fastapi import Query, Depends
+
 
 router = APIRouter()
+
+
+def get_pagination_params(
+    page: int = Query(1, gt=0),
+    per_page: int = Query(10, gt=0)
+):
+    return {"page": page, "per_page": per_page}
 
 
 @router.post(
@@ -46,38 +56,62 @@ async def post(
 
         db_session.add(atleta_model)
         await db_session.commit()
+
+    except IntegrityError:
+        raise HTTPException(
+                            status_code=status.HTTP_303_SEE_OTHER,
+                            detail="Já existe um atleta cadastrado com o CPF informado"
+                            )
     except Exception:
-        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                            detail='Ocorreu um erro ao inserir os dados no banco.')
+        raise HTTPException(
+                            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                            detail='Ocorreu um erro ao inserir os dados no banco.'
+                            )
 
     return atleta_out
 
 
 @router.get(
-        '/',
-        summary='Consultar todos os atletas',
-        status_code=status.HTTP_200_OK,
-        response_model=list[AtletaOut],
-        )
-async def get(db_session: DataBaseDependecy) -> list[AtletaOut]:
+    '/',
+    summary='Consultar todos os atletas',
+    status_code=status.HTTP_200_OK,
+    response_model=list[dict[str, str]],
+)
+async def get(db_session: DataBaseDependecy, pagination: dict = Depends(get_pagination_params),
+              offset: int = Query(0, ge=0), limit: int = Query(10, gt=0)) -> list[dict[str, str]]:
     atletas: list[AtletaOut] = (await db_session.execute(select(AtletaModel))).scalars().all()
+    page = pagination["page"]
+    per_page = pagination["per_page"]
+    start = (page - 1) * per_page
+    end = start + per_page
+    # Criar uma lista de dicionários com os campos desejados
+    resultado = [
+        {
+            "nome": atleta.nome,
+            "categoria": atleta.categoria.nome,  # Acessar o nome da categoria
+            "centro_treinamento": atleta.centro_treinamento.nome,  # Acessar o nome do centro de treinamento
+        }
+        for atleta in atletas
+    ]
 
-    return [AtletaOut.model_validate(atleta) for atleta in atletas]
+    return resultado[start:end][offset:offset + limit]
 
 
 @router.get(
-        '/{id}',
-        summary='Consultar um atleta pelo id',
+        '/buscar',
+        summary='Consultar um atleta por nome e cpf',
         status_code=status.HTTP_200_OK,
         response_model=AtletaOut,
         )
-async def get_one(id: UUID4, db_session: DataBaseDependecy) -> AtletaOut:
+async def get_one(nome, cpf, db_session: DataBaseDependecy) -> AtletaOut:
     atleta: AtletaOut = (
-        await db_session.execute(select(AtletaModel).filter_by(id=id))
+        await db_session.execute(select(AtletaModel).filter_by(nome=nome, cpf=cpf))
         ).scalars().first()
 
     if not atleta:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'Atleta não encontrado no id {id}')
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail=f'Atleta com nome {nome} e cpf: {cpf} não encontrado.'
+            )
 
     return atleta
 

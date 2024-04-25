@@ -2,10 +2,11 @@ from typing import AsyncGenerator
 
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.orm import sessionmaker
-from workout.workout_api.configs.settings import settings
 
 
-engine = create_async_engine(settings.DB_URL, echo=False)
+DB_URL: str = ('sqlite+aiosqlite:///C:/Users/Rafa_/Documents' +
+               '/GitHub/Bootcamp-DIO/Bootcamp_PythonBack-End/workout/workout.db')
+engine = create_async_engine(DB_URL, echo=True)
 async_session = sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)  # type: ignore
 
 

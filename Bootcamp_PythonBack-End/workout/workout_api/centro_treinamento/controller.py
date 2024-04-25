@@ -3,7 +3,7 @@ from uuid import uuid4
 from fastapi import APIRouter, status, Body
 from pydantic import UUID4
 from workout.workout_api.centro_treinamento.models import CentroTreinamentoModel
-from workout.workout_api.centro_treinamento.schemas import CentroTreinamentoIn, CentroTreinamentoOut, CentroTreinamentoAtleta
+from workout.workout_api.centro_treinamento.schemas import CentroTreinamentoIn, CentroTreinamentoOut
 
 from workout.workout_api.contrib.dependencies import DataBaseDependecy
 from sqlalchemy.future import select
